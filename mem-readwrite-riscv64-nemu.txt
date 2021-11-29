@@ -1,0 +1,74 @@
+
+/home/mandelbrot/ics2020/am-kernels/tests/cpu-tests/build/mem-readwrite-riscv64-nemu.elf：     文件格式 elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000080000000 <_start>:
+    80000000:	00000413          	li	s0,0
+    80000004:	00281117          	auipc	sp,0x281
+    80000008:	ffc10113          	addi	sp,sp,-4 # 80281000 <_end>
+    8000000c:	0c0000ef          	jal	ra,800000cc <_trm_init>
+
+0000000080000010 <check>:
+    80000010:	00050463          	beqz	a0,80000018 <check+0x8>
+    80000014:	00008067          	ret
+    80000018:	ff010113          	addi	sp,sp,-16
+    8000001c:	00100513          	li	a0,1
+    80000020:	00113423          	sd	ra,8(sp)
+    80000024:	09c000ef          	jal	ra,800000c0 <halt>
+
+0000000080000028 <main>:
+    80000028:	fffe02b7          	lui	t0,0xfffe0
+    8000002c:	81010113          	addi	sp,sp,-2032
+    80000030:	7d028293          	addi	t0,t0,2000 # fffffffffffe07d0 <_end+0xffffffff7fd5f7d0>
+    80000034:	7c913c23          	sd	s1,2008(sp)
+    80000038:	7e113423          	sd	ra,2024(sp)
+    8000003c:	7e813023          	sd	s0,2016(sp)
+    80000040:	7d213823          	sd	s2,2000(sp)
+    80000044:	000207b7          	lui	a5,0x20
+    80000048:	00510133          	add	sp,sp,t0
+    8000004c:	002787b3          	add	a5,a5,sp
+    80000050:	fffe04b7          	lui	s1,0xfffe0
+    80000054:	009784b3          	add	s1,a5,s1
+    80000058:	00048713          	mv	a4,s1
+    8000005c:	00000793          	li	a5,0
+    80000060:	000086b7          	lui	a3,0x8
+    80000064:	00f72023          	sw	a5,0(a4)
+    80000068:	0017879b          	addiw	a5,a5,1
+    8000006c:	00470713          	addi	a4,a4,4
+    80000070:	fed79ae3          	bne	a5,a3,80000064 <main+0x3c>
+    80000074:	00000413          	li	s0,0
+    80000078:	00008937          	lui	s2,0x8
+    8000007c:	0004a503          	lw	a0,0(s1) # fffffffffffe0000 <_end+0xffffffff7fd5f000>
+    80000080:	00448493          	addi	s1,s1,4
+    80000084:	40850533          	sub	a0,a0,s0
+    80000088:	00153513          	seqz	a0,a0
+    8000008c:	0014041b          	addiw	s0,s0,1
+    80000090:	f81ff0ef          	jal	ra,80000010 <check>
+    80000094:	ff2414e3          	bne	s0,s2,8000007c <main+0x54>
+    80000098:	000202b7          	lui	t0,0x20
+    8000009c:	83028293          	addi	t0,t0,-2000 # 1f830 <_start-0x7ffe07d0>
+    800000a0:	00510133          	add	sp,sp,t0
+    800000a4:	7e813083          	ld	ra,2024(sp)
+    800000a8:	7e013403          	ld	s0,2016(sp)
+    800000ac:	7d813483          	ld	s1,2008(sp)
+    800000b0:	7d013903          	ld	s2,2000(sp)
+    800000b4:	00000513          	li	a0,0
+    800000b8:	7f010113          	addi	sp,sp,2032
+    800000bc:	00008067          	ret
+
+00000000800000c0 <halt>:
+    800000c0:	00050513          	mv	a0,a0
+    800000c4:	0000006b          	0x6b
+    800000c8:	0000006f          	j	800000c8 <halt+0x8>
+
+00000000800000cc <_trm_init>:
+    800000cc:	ff010113          	addi	sp,sp,-16
+    800000d0:	00000517          	auipc	a0,0x0
+    800000d4:	02050513          	addi	a0,a0,32 # 800000f0 <mainargs>
+    800000d8:	00113423          	sd	ra,8(sp)
+    800000dc:	f4dff0ef          	jal	ra,80000028 <main>
+    800000e0:	00050513          	mv	a0,a0
+    800000e4:	0000006b          	0x6b
+    800000e8:	0000006f          	j	800000e8 <_trm_init+0x1c>

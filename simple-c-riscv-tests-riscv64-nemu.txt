@@ -1,0 +1,15 @@
+
+/home/mandelbrot/ics2020/am-kernels/tests/riscv-tests/build/simple-riscv64-nemu.elf：     文件格式 elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000080000000 <_start>:
+    80000000:	4501                	li	a0,0
+    80000002:	0400006f          	j	80000042 <halt>
+	...
+
+0000000080000042 <halt>:
+    80000042:	852a                	mv	a0,a0
+    80000044:	0000006b          	0x6b
+    80000048:	a001                	j	80000048 <halt+0x6>

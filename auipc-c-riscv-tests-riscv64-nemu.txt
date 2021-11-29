@@ -1,0 +1,42 @@
+
+/home/mandelbrot/ics2020/am-kernels/tests/riscv-tests/build/auipc-riscv64-nemu.elf：     文件格式 elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000080000000 <_start>:
+    80000000:	00002517          	auipc	a0,0x2
+    80000004:	71c50513          	addi	a0,a0,1820 # 8000271c <_stack_top+0x171c>
+    80000008:	004005ef          	jal	a1,8000000c <_start+0xc>
+    8000000c:	8d0d                	sub	a0,a0,a1
+    8000000e:	6389                	lui	t2,0x2
+    80000010:	7103839b          	addiw	t2,t2,1808
+    80000014:	4189                	li	gp,2
+    80000016:	02751463          	bne	a0,t2,8000003e <fail>
+
+000000008000001a <test_3>:
+    8000001a:	0001                	nop
+    8000001c:	00000013          	nop
+    80000020:	ffffe517          	auipc	a0,0xffffe
+    80000024:	8fc50513          	addi	a0,a0,-1796 # 7fffd91c <_start-0x26e4>
+    80000028:	004005ef          	jal	a1,8000002c <test_3+0x12>
+    8000002c:	8d0d                	sub	a0,a0,a1
+    8000002e:	73f9                	lui	t2,0xffffe
+    80000030:	8f03839b          	addiw	t2,t2,-1808
+    80000034:	418d                	li	gp,3
+    80000036:	00751463          	bne	a0,t2,8000003e <fail>
+    8000003a:	00301563          	bne	zero,gp,80000044 <pass>
+
+000000008000003e <fail>:
+    8000003e:	4505                	li	a0,1
+    80000040:	03c0006f          	j	8000007c <halt>
+
+0000000080000044 <pass>:
+    80000044:	4501                	li	a0,0
+    80000046:	0360006f          	j	8000007c <halt>
+	...
+
+000000008000007c <halt>:
+    8000007c:	852a                	mv	a0,a0
+    8000007e:	0000006b          	0x6b
+    80000082:	a001                	j	80000082 <halt+0x6>
